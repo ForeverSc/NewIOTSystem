@@ -9,10 +9,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NewIOTSystem</RootNamespace>
     <AssemblyName>NewIOTSystem</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -36,14 +37,11 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
+    <Reference Include="System.XML" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xaml">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
+    <Reference Include="UIAutomationProvider" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -53,24 +51,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Rectangles.xaml.cs">
+    <Compile Include="ViewModels\RectanglesAndInputs.cs" />
+    <Compile Include="Views\Rectangles.xaml.cs">
       <DependentUpon>Rectangles.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Benes.cs" />
-    <Compile Include="CreateView.cs" />
+    <Compile Include="Models\Benes.cs" />
+    <Compile Include="Models\CreateView.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
-    <Page Include="Rectangles.xaml">
+    <Page Include="Views\Rectangles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -101,6 +102,196 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Icons\005_Task.ico" />
+    <Resource Include="Icons\008_Reminder.ico" />
+    <Resource Include="Icons\010_LowPriority.ico" />
+    <Resource Include="Icons\112_ArrowCurveBlue_Right.ico" />
+    <Resource Include="Icons\112_DownArrowLong_Blue.ico" />
+    <Resource Include="Icons\112_DownArrowLong_Green.ico" />
+    <Resource Include="Icons\112_DownArrowLong_Grey.ico" />
+    <Resource Include="Icons\112_DownArrowLong_Orange.ico" />
+    <Resource Include="Icons\112_DownArrowShort_Blue.ico" />
+    <Resource Include="Icons\112_DownArrowShort_Green.ico" />
+    <Resource Include="Icons\112_DownArrowShort_Grey.ico" />
+    <Resource Include="Icons\112_DownArrowShort_Orange.ico" />
+    <Resource Include="Icons\112_LeftArrowLong_Blue.ico" />
+    <Resource Include="Icons\112_LeftArrowLong_Green.ico" />
+    <Resource Include="Icons\112_LeftArrowLong_Grey.ico" />
+    <Resource Include="Icons\112_LeftArrowLong_Orange.ico" />
+    <Resource Include="Icons\112_LeftArrowShort_Blue.ico" />
+    <Resource Include="Icons\112_LeftArrowShort_Green.ico" />
+    <Resource Include="Icons\112_LeftArrowShort_Grey.ico" />
+    <Resource Include="Icons\112_LeftArrowShort_Orange.ico" />
+    <Resource Include="Icons\112_Minus_Green.ico" />
+    <Resource Include="Icons\112_Minus_Grey.ico" />
+    <Resource Include="Icons\112_Minus_Orange.ico" />
+    <Resource Include="Icons\112_Plus_Green.ico" />
+    <Resource Include="Icons\112_Plus_Grey.ico" />
+    <Resource Include="Icons\112_Plus_Orange.ico" />
+    <Resource Include="Icons\112_RightArrowLong_Blue.ico" />
+    <Resource Include="Icons\112_RightArrowLong_Green.ico" />
+    <Resource Include="Icons\112_RightArrowLong_Grey.ico" />
+    <Resource Include="Icons\112_RightArrowLong_Orange.ico" />
+    <Resource Include="Icons\112_RightArrowShort_Blue.ico" />
+    <Resource Include="Icons\112_RightArrowShort_Green.ico" />
+    <Resource Include="Icons\112_RightArrowShort_Grey.ico" />
+    <Resource Include="Icons\112_RightArrowShort_Orange.ico" />
+    <Resource Include="Icons\112_Tick_Blue.ico" />
+    <Resource Include="Icons\112_Tick_Green.ico" />
+    <Resource Include="Icons\112_Tick_Grey.ico" />
+    <Resource Include="Icons\112_Tick_Orange.ico" />
+    <Resource Include="Icons\112_UpArrowLong_Blue.ico" />
+    <Resource Include="Icons\112_UpArrowLong_Green.ico" />
+    <Resource Include="Icons\112_UpArrowLong_Grey.ico" />
+    <Resource Include="Icons\112_UpArrowShort_Blue.ico" />
+    <Resource Include="Icons\112_UpArrowShort_Green.ico" />
+    <Resource Include="Icons\112_UpArrowShort_Grey.ico" />
+    <Resource Include="Icons\112_UpArrowShort_Orange.ico" />
+    <Resource Include="Icons\1380_wall_clockFINAL.ico" />
+    <Resource Include="Icons\1381_cog.ico" />
+    <Resource Include="Icons\1382_cogs.ico" />
+    <Resource Include="Icons\138_PushPin.ico" />
+    <Resource Include="Icons\1415_Paintbrush.ico" />
+    <Resource Include="Icons\1446_envelope_stamp_clsd.ico" />
+    <Resource Include="Icons\1447_eraser.ico" />
+    <Resource Include="Icons\1460_PaintPaletteFINAL.ico" />
+    <Resource Include="Icons\1474_Tape.ico" />
+    <Resource Include="Icons\1475_Text Balloon.ico" />
+    <Resource Include="Icons\1496_wall.ico" />
+    <Resource Include="Icons\1507_ParallelPort.ico" />
+    <Resource Include="Icons\1532_Flag_Blue.ico" />
+    <Resource Include="Icons\1532_Flag_Green.ico" />
+    <Resource Include="Icons\1532_Flag_Purple.ico" />
+    <Resource Include="Icons\1532_Flag_Red.ico" />
+    <Resource Include="Icons\1532_Flag_Yellow.ico" />
+    <Resource Include="Icons\1549_Paper_clip_blue.ico" />
+    <Resource Include="Icons\1549_Paper_clip_gray.ico" />
+    <Resource Include="Icons\1683_Lightbulb.ico" />
+    <Resource Include="Icons\174_magnify_uncompressed.ico" />
+    <Resource Include="Icons\3.5_Disk_Drive.ico" />
+    <Resource Include="Icons\327_Options.ico" />
+    <Resource Include="Icons\525_DiskDrive.ico" />
+    <Resource Include="Icons\activityreports.ico" />
+    <Resource Include="Icons\Annotate_Blocked_large.ico" />
+    <Resource Include="Icons\Annotate_Blocked_small.ico" />
+    <Resource Include="Icons\Annotate_Complete.ico" />
+    <Resource Include="Icons\Annotate_Default.ico" />
+    <Resource Include="Icons\Annotate_Disabled.ico" />
+    <Resource Include="Icons\Annotate_Error.ico" />
+    <Resource Include="Icons\Annotate_Help.ico" />
+    <Resource Include="Icons\Annotate_HighPriority.ico" />
+    <Resource Include="Icons\Annotate_info.ico" />
+    <Resource Include="Icons\Annotate_QuestionBlue.ico" />
+    <Resource Include="Icons\Annotate_QuestionRed.ico" />
+    <Resource Include="Icons\Annotate_Warning.ico" />
+    <Resource Include="Icons\audiocd.ico" />
+    <Resource Include="Icons\audiodvd.ico" />
+    <Resource Include="Icons\AudioFile.ico" />
+    <Resource Include="Icons\audioplayer.ico" />
+    <Resource Include="Icons\batfile.ico" />
+    <Resource Include="Icons\BlankMedia.ico" />
+    <Resource Include="Icons\bluraymovie.ico" />
+    <Resource Include="Icons\Book_Green.ico" />
+    <Resource Include="Icons\Book_JournalwPen.ico" />
+    <Resource Include="Icons\calculator.ico" />
+    <Resource Include="Icons\Camera.ico" />
+    <Resource Include="Icons\cdaudioplus.ico" />
+    <Resource Include="Icons\cdempty.ico" />
+    <Resource Include="Icons\CD_Drive.ico" />
+    <Resource Include="Icons\CD_R.ico" />
+    <Resource Include="Icons\CD_ROM.ico" />
+    <Resource Include="Icons\CD_RW.ico" />
+    <Resource Include="Icons\CD_SV.ico" />
+    <Resource Include="Icons\CD_V.ico" />
+    <Resource Include="Icons\cellphone.ico" />
+    <Resource Include="Icons\cmd.ico" />
+    <Resource Include="Icons\compactflash.ico" />
+    <Resource Include="Icons\computer.ico" />
+    <Resource Include="Icons\ConnectionManager.ico" />
+    <Resource Include="Icons\CPU.ico" />
+    <Resource Include="Icons\Default_Fax.ico" />
+    <Resource Include="Icons\Dialup.ico" />
+    <Resource Include="Icons\DVD.ico" />
+    <Resource Include="Icons\dvddrive.ico" />
+    <Resource Include="Icons\DVDplusR.ico" />
+    <Resource Include="Icons\dvdram.ico" />
+    <Resource Include="Icons\dvdrw.ico" />
+    <Resource Include="Icons\DVD_R.ico" />
+    <Resource Include="Icons\DVD_ROM.ico" />
+    <Resource Include="Icons\emd.ico" />
+    <Resource Include="Icons\EmptyDrive.ico" />
+    <Resource Include="Icons\EnhancedAudioCD.ico" />
+    <Resource Include="Icons\Enhanced_DVD.ico" />
+    <Resource Include="Icons\Favorites.ico" />
+    <Resource Include="Icons\Favorite_FrontFacing.ico" />
+    <Resource Include="Icons\Fax.ico" />
+    <Resource Include="Icons\FloppyDisk.ico" />
+    <Resource Include="Icons\folder.ico" />
+    <Resource Include="Icons\Folder_Back.ico" />
+    <Resource Include="Icons\folder_closed_16x16.ico" />
+    <Resource Include="Icons\folder_open.ico" />
+    <Resource Include="Icons\Folder_stuffed.ico" />
+    <Resource Include="Icons\font.ico" />
+    <Resource Include="Icons\gamecontroller.ico" />
+    <Resource Include="Icons\Gear.ico" />
+    <Resource Include="Icons\GenericMovieClip.ico" />
+    <Resource Include="Icons\Generic_Application.ico" />
+    <Resource Include="Icons\Generic_Device.ico" />
+    <Resource Include="Icons\Generic_Document.ico" />
+    <Resource Include="Icons\generic_picture.ico" />
+    <Resource Include="Icons\Globe.ico" />
+    <Resource Include="Icons\Hard_Drive.ico" />
+    <Resource Include="Icons\hddvdmovie.ico" />
+    <Resource Include="Icons\help.ico" />
+    <Resource Include="Icons\history.ico" />
+    <Resource Include="Icons\Hyperlink.ico" />
+    <Resource Include="Icons\Image_File.ico" />
+    <Resource Include="Icons\Journal.ico" />
+    <Resource Include="Icons\Key.ico" />
+    <Resource Include="Icons\keybd.ico" />
+    <Resource Include="Icons\Keys.ico" />
+    <Resource Include="Icons\Laptop.ico" />
+    <Resource Include="Icons\Likely_unavail.ico" />
+    <Resource Include="Icons\magnify.ico" />
+    <Resource Include="Icons\MixedMediaFile.ico" />
+    <Resource Include="Icons\Monitor.ico" />
+    <Resource Include="Icons\Mouse.ico" />
+    <Resource Include="Icons\Music_Note_Double.ico" />
+    <Resource Include="Icons\Music_Note_Single.ico" />
+    <Resource Include="Icons\mynet.ico" />
+    <Resource Include="Icons\Network.ico" />
+    <Resource Include="Icons\network_center.ico" />
+    <Resource Include="Icons\Network_Drive.ico" />
+    <Resource Include="Icons\Network_Fax.ico" />
+    <Resource Include="Icons\network_fax_default.ico" />
+    <Resource Include="Icons\Network_Folder.ico" />
+    <Resource Include="Icons\Network_Internet.ico" />
+    <Resource Include="Icons\Network_Map.ico" />
+    <Resource Include="Icons\network_printer.ico" />
+    <Resource Include="Icons\New.ico" />
+    <Resource Include="Icons\noresults_uncompressed.ico" />
+    <Resource Include="Icons\Overlay_audio.ico" />
+    <Resource Include="Icons\Overlay_preferences.ico" />
+    <Resource Include="Icons\Overlay_share.ico" />
+    <Resource Include="Icons\Overlay_shortcut.ico" />
+    <Resource Include="Icons\printer.ico" />
+    <Resource Include="Icons\printof.ico" />
+    <Resource Include="Icons\ram.ico" />
+    <Resource Include="Icons\SecurityLock.ico" />
+    <Resource Include="Icons\Settings.ico" />
+    <Resource Include="Icons\Setup_Install.ico" />
+    <Resource Include="Icons\smartmed.ico" />
+    <Resource Include="Icons\Stopwatch.ico" />
+    <Resource Include="Icons\tip.ico" />
+    <Resource Include="Icons\UnknownDrive.ico" />
+    <Resource Include="Icons\VideoCamera.ico" />
+    <Resource Include="Icons\VPN.ico" />
+    <Resource Include="Icons\WispRefresh.ico" />
+    <Resource Include="Icons\XAML_file.ico" />
+    <Resource Include="Icons\zippedFile.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
