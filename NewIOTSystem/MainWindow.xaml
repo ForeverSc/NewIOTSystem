@@ -9,16 +9,28 @@
             </Style>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid>
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="727*"/>
+            <ColumnDefinition Width="265*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="8*"/>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="3*"/>
             <RowDefinition Height="157*"/>
-            <RowDefinition Height="45*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="39*"/>
         </Grid.RowDefinitions>
-        <Menu Grid.Row="0"></Menu>
-        <ToolBar Grid.Row="1">
+        <Menu Margin="2" Grid.Row="0" Grid.ColumnSpan="2">
+            <MenuItem Header="项目"></MenuItem>
+            <MenuItem Header="视图"></MenuItem>
+            <MenuItem Header="测试"></MenuItem>
+            <MenuItem Header="工具"></MenuItem>
+            <MenuItem Header="结果"></MenuItem>
+            <MenuItem Header="关于"></MenuItem>
+        </Menu>
+        <ToolBar Grid.Row="1" Grid.ColumnSpan="2">
             <Button Style="{StaticResource quickbutton}" Click="Button_Click">
                 <Image Source="/Icons/112_LeftArrowLong_Blue.ico" ></Image>
             </Button>
@@ -34,9 +46,43 @@
             </Button>
 
         </ToolBar>
-        <ScrollViewer Grid.Row="3" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
-        <Canvas  Name="canvas" Width="1000" Height="1000" />
-        </ScrollViewer>
+        <Border Grid.Row="3" Grid.Column="0">
+            <ScrollViewer  HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
+                <Canvas  Name="canvas" Width="1000" Height="1000" />
+            </ScrollViewer>
+        </Border>
         
+        <Border Grid.Row="3" Grid.Column="2">
+            <TabControl>
+                <TabItem Header="搜索">
+                <ToolBarPanel>
+                    <TextBox Name="search_tbox" Height="30" Margin=" 10"></TextBox>
+                <Button Name="search_button"  Height="30" Margin="10" Click="search_button_Click" >搜索</Button>
+                </ToolBarPanel>
+                </TabItem>
+                <TabItem Header="项目结构">
+                    
+                </TabItem>
+                
+            </TabControl>
+        </Border>
+
+        <Border Grid.Row="4" Grid.RowSpan="2" Grid.ColumnSpan="2">
+            <TabControl>
+                <TabItem Header="运行结果">
+                <DataGrid  Name="datagrid" >
+
+                </DataGrid>
+                </TabItem>
+                <TabItem Header="搜索结果">
+                    <DataGrid  Name="search_datagrid" >
+
+                    </DataGrid>
+
+                </TabItem>
+            </TabControl>
+        </Border>
+
+
     </Grid>
 </Window>

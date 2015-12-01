@@ -18,7 +18,7 @@ namespace NewIOTSystem
         private int floors = 0;
         //betweenspace=rectanglewidth=rectangleheight
         private double betweenspace = 50;
-        private double startleftspace = 20;
+        private double startleftspace = 40;
         private double starttopspace = 20;
         private double tboxwidth = 50;
         private double tboxheight = 20;
@@ -158,6 +158,49 @@ namespace NewIOTSystem
             }
             
             
+        } 
+     
+        public void Show_OtherConnections()
+        {
+            //显示输入口和输出口的端口号
+            for (int i = 0; i < n; i++)
+            {
+                Label label_in = new Label();
+                label_in.Content = i.ToString();
+                label_in.SetValue(Canvas.TopProperty, (double)input_list[i].GetValue(Canvas.TopProperty));
+                label_in.SetValue(Canvas.LeftProperty, 10.0);
+                MainWindow.mainwindow.canvas.Children.Add(label_in);
+
+                Label label_out = new Label();
+                label_out.Content = i.ToString();
+                label_out.SetValue(Canvas.TopProperty, (double)output_list[i].GetValue(Canvas.TopProperty));
+                label_out.SetValue(Canvas.LeftProperty, (double)output_list[i].GetValue(Canvas.LeftProperty)+tboxwidth + 10);
+                MainWindow.mainwindow.canvas.Children.Add(label_out);
+                
+            }
+
+            //输入口，输出口与Rectangle之间的连接
+            for (int i = 0; i < n; i++)
+            {
+                Line line = new Line();
+                line.Stroke = new SolidColorBrush(Colors.Black);
+                line.X1 =(double)input_list[i].GetValue(Canvas.LeftProperty)+tboxwidth;
+                line.Y1 = (double)input_list[i].GetValue(Canvas.TopProperty) + tboxheight / 2;
+                line.X2 = line.X1 + betweenspace;
+                line.Y2 = line.Y1;
+                MainWindow.mainwindow.canvas.Children.Add(line);
+            }
+            for (int i = 0; i < n; i++)
+            {
+                Line line = new Line();
+                line.Stroke = new SolidColorBrush(Colors.Black);
+                line.X2 = (double) output_list[i].GetValue(Canvas.LeftProperty);
+                line.Y2 = (double)output_list[i].GetValue(Canvas.TopProperty) + tboxheight / 2;
+                line.X1 = line.X2 -betweenspace;
+                line.Y1 = line.Y2;
+                MainWindow.mainwindow.canvas.Children.Add(line);
+            }
+
         }
         public void Set_Status(int flag,Rectangles rectangle)
         {        

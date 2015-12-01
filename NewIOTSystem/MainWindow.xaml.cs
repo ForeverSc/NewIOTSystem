@@ -12,6 +12,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using NewIOTSystem.ViewModels;
+using System.Data;
+
 
 namespace NewIOTSystem
 {
@@ -41,9 +43,16 @@ namespace NewIOTSystem
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            view = new RectanglesAndInputs(16);
-           
+            view = new RectanglesAndInputs(8);
             view.Show_All();
+           
+            
+           
+        }
+
+        private void search_button_Click(object sender, RoutedEventArgs e)
+        {
+            view.ShowSearchResult(Convert.ToInt32(this.search_tbox.Text));
         }
     }
 }
