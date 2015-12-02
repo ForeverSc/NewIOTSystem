@@ -23,12 +23,18 @@
             <RowDefinition Height="39*"/>
         </Grid.RowDefinitions>
         <Menu Margin="2" Grid.Row="0" Grid.ColumnSpan="2">
-            <MenuItem Header="项目"></MenuItem>
-            <MenuItem Header="视图"></MenuItem>
-            <MenuItem Header="测试"></MenuItem>
-            <MenuItem Header="工具"></MenuItem>
-            <MenuItem Header="结果"></MenuItem>
-            <MenuItem Header="关于"></MenuItem>
+            <MenuItem Header="项目(P)"></MenuItem>
+            <MenuItem Header="视图(V)"></MenuItem>
+            <MenuItem Header="测试(D)">
+                <MenuItem Header="启动运行" ></MenuItem>      
+            </MenuItem>
+            <MenuItem Header="工具(T)">
+                <MenuItem Header="搜索" Click="search_button_Click"></MenuItem>
+                <MenuItem Header="高亮" Click="highlight_button_Click"></MenuItem>
+                <MenuItem Header="复原" Click="returntoblack_button_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="结果(R)"></MenuItem>
+            <MenuItem Header="关于(I)"></MenuItem>
         </Menu>
         <ToolBar Grid.Row="1" Grid.ColumnSpan="2">
             <Button Style="{StaticResource quickbutton}" Click="Button_Click">
@@ -38,11 +44,24 @@
                 <Image Source="/Icons/112_RightArrowLong_Blue.ico" ></Image>
             </Button>
             <Button Style="{StaticResource quickbutton}">
-                <Image ></Image>
+                <Image Source="/Icons/folder_open.ico" ></Image>
+            </Button>
+            <Button Style="{StaticResource quickbutton}">
+                <Image Source="/Icons/folder_open.ico" ></Image>
             </Button>
 
             <Button Style="{StaticResource quickbutton}">
-                <Image ></Image>
+                <Image Source="/Icons/FloppyDisk.ico" ></Image>
+            </Button>
+          
+            <Button Style="{StaticResource quickbutton}">
+                <Image Source="/Icons/1382_cogs.ico" ></Image>
+            </Button>
+            <Button Style="{StaticResource quickbutton}">
+                <Image Source="/Icons/WispRefresh.ico" ></Image>
+            </Button>
+            <Button Style="{StaticResource quickbutton}">
+                <Image Source="/Icons/help.ico" ></Image>
             </Button>
 
         </ToolBar>
@@ -57,8 +76,10 @@
                 <TabItem Header="搜索">
                 <ToolBarPanel>
                     <TextBox Name="search_tbox" Height="30" Margin=" 10"></TextBox>
-                <Button Name="search_button"  Height="30" Margin="10" Click="search_button_Click" >搜索</Button>
-                </ToolBarPanel>
+                    <Button Name="search_button"  Height="30" Margin="10" Click="search_button_Click" >搜索</Button>
+                     <Button Name="highlight_button" Height="30" Margin="10" Click="highlight_button_Click">高亮</Button>
+                    <Button x:Name="returntoblack_button" Height="30" Margin="10" Click="returntoblack_button_Click" Content="复原"/>
+                    </ToolBarPanel>
                 </TabItem>
                 <TabItem Header="项目结构">
                     
@@ -74,7 +95,7 @@
 
                 </DataGrid>
                 </TabItem>
-                <TabItem Header="搜索结果">
+                <TabItem Name="tableitem_searchresult" Header="搜索结果">
                     <DataGrid  Name="search_datagrid" >
 
                     </DataGrid>
@@ -83,6 +104,8 @@
             </TabControl>
         </Border>
 
+        <GridSplitter Grid.Row="3" Height="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" ></GridSplitter>
+        <GridSplitter Grid.Row="0" Width="1" Grid.RowSpan="5"></GridSplitter>
 
     </Grid>
 </Window>

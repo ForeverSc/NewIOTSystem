@@ -45,7 +45,7 @@ namespace NewIOTSystem
         {
             view = new RectanglesAndInputs(8);
             view.Show_All();
-           
+            
             
            
         }
@@ -53,6 +53,17 @@ namespace NewIOTSystem
         private void search_button_Click(object sender, RoutedEventArgs e)
         {
             view.ShowSearchResult(Convert.ToInt32(this.search_tbox.Text));
+                   
+        }
+
+        private void returntoblack_button_Click(object sender, RoutedEventArgs e)
+        {
+            view.ReturnToBlack();
+        }
+
+        private void highlight_button_Click(object sender, RoutedEventArgs e)
+        { 
+            view.ChangeSearchPathColortoRed();
         }
     }
 }

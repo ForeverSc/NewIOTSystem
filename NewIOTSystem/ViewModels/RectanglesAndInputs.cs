@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Media;
 using System.Windows.Shapes;
 
 
@@ -23,8 +24,20 @@ namespace NewIOTSystem.ViewModels
         private int[,] swtichs;
         private Benes benes;
         private CreateView view;
-        private List<int> searchlist;
+        private List<int> search_list;
+        private List<Line> redline_list;
+        private double betweenspace = 50;
+        private double startleftspace = 40;
+        private double starttopspace = 20;
+        private double tboxwidth = 50;
+        private double tboxheight = 20;
+        private SolidColorBrush color = new SolidColorBrush(Colors.Red);
+        private double thickness = 2;
 
+        public RectanglesAndInputs()
+        {
+            
+        }
 
         public RectanglesAndInputs(int n)
         {
@@ -80,17 +93,26 @@ namespace NewIOTSystem.ViewModels
         }
 
 
+        //将所有线路结果显示出来
+        public void ShowAllPath()
+        {
+
+ 
+        }
+
+
+
         //显示搜索结果
         public void ShowSearchResult(int search)
         {
-                searchlist = new List<int>();
-                searchlist.Add(search);
+                search_list = new List<int>();
+                search_list.Add(search);
                 for (int i = 0; i < floors-1; i++)
                 {
                     if (swtichs[i,search/2]==1)//直通
                     {
                         search = rtag[i, search];
-                        searchlist.Add(search);
+                        search_list.Add(search);
                     }
                     else//交叉
                     {
@@ -102,12 +124,12 @@ namespace NewIOTSystem.ViewModels
                         {
                             search = rtag[i, search - 1];
                         }
-                        searchlist.Add(search);
+                        search_list.Add(search);
                     }            
                 }
                 if (swtichs[floors-1,search/2]==1)
                 {        
-                     searchlist.Add(search);
+                     search_list.Add(search);
                 }
                 else
                 {
@@ -119,7 +141,7 @@ namespace NewIOTSystem.ViewModels
                     {
                         search-=1;
                     }
-                    searchlist.Add(search);
+                    search_list.Add(search);
                 }
 
             DataTable datatable=new DataTable();
@@ -136,13 +158,131 @@ namespace NewIOTSystem.ViewModels
             DataRow datarow = datatable.NewRow();
             for (int i = 0; i < floors+1; i++)
             {
-                datarow[i] = searchlist[i].ToString();
+                datarow[i] = search_list[i].ToString();
             }
             datatable.Rows.Add(datarow);
             MainWindow.mainwindow.search_datagrid.ItemsSource = datatable.DefaultView;
                 
             
  
+        }
+
+        //根据搜索结果，将这条线路变成红色
+        public void ChangeSearchPathColortoRed()
+        {
+            redline_list = new List<Line>();
+            Line inredline = new Line();
+            inredline.Stroke = color;
+            inredline.StrokeThickness = thickness;
+            inredline.Y1=(double)input_list[search_list[0]].GetValue(Canvas.TopProperty)+tboxheight/2;
+            inredline.X1 = (double)input_list[search_list[0]].GetValue(Canvas.LeftProperty) + tboxwidth;
+            inredline.X2 = inredline.X1 + betweenspace;
+            inredline.Y2 = inredline.Y1;
+            redline_list.Add(inredline);
+            MainWindow.mainwindow.canvas.Children.Add(inredline);
+
+            for (int i = 0; i < floors-1; i++)
+            {
+                Line line1 = new Line();
+                line1.Stroke = color;
+                line1.StrokeThickness = thickness;
+                line1.X1 = (double)rectangles_list[search_list[i]/2][i].GetValue(Canvas.LeftProperty);
+                
+                    if (search_list[i]%2==0)
+                    {
+                        line1.Y1 = (double)rectangles_list[search_list[i] / 2][i].GetValue(Canvas.TopProperty) + 10;
+                    }
+                    else
+                    {
+                        line1.Y1 = (double)rectangles_list[search_list[i] / 2][i].GetValue(Canvas.TopProperty) + 40;
+                    }
+                
+               
+               
+                line1.X2 = (double)rectangles_list[search_list[i]/2][i].GetValue(Canvas.LeftProperty) + betweenspace;
+                if (swtichs[i,search_list[i]/2]==1)//直通
+                {                   
+                    line1.Y2 = line1.Y1;
+                }
+                else
+                {
+                    if (search_list[i]%2==0)
+                    {
+                        line1.Y2 = line1.Y1 + 30;
+                    }
+                    else
+                    {
+                        line1.Y2 = line1.Y1 - 30;
+                    }
+                    
+                }
+                redline_list.Add(line1);
+                MainWindow.mainwindow.canvas.Children.Add(line1);
+
+                Line line2 = new Line();
+                line2.Stroke = color;
+                line2.StrokeThickness = thickness;
+                line2.X1 = line1.X2;
+                line2.Y1 = line1.Y2;
+                line2.X2 = line2.X1 + betweenspace;
+                if (search_list[i+1]%2==0)
+                {
+                     line2.Y2=(double)rectangles_list[search_list[i+1]/2][i+1].GetValue(Canvas.TopProperty)+10;
+                }
+                else
+                {
+                     line2.Y2 = (double)rectangles_list[search_list[i + 1]/2][i + 1].GetValue(Canvas.TopProperty)+40;
+                }
+                redline_list.Add(line2);
+                MainWindow.mainwindow.canvas.Children.Add(line2);
+                
+            }
+
+            Line outline1 = new Line();
+            outline1.Stroke = color;
+            outline1.StrokeThickness = thickness;
+            outline1.X1 = redline_list[2 * (floors - 1)].X2;
+            outline1.Y1 = redline_list[2 * (floors - 1)].Y2;
+            outline1.X2 = outline1.X1 + betweenspace;
+            if (swtichs[floors-1,search_list[floors-1]/2]==1)
+            {
+                outline1.Y2 = outline1.Y1;
+            }
+            else
+            {
+                if (search_list[floors-1]%2==0)
+                {
+                    outline1.Y2=outline1.Y1+30;
+                }
+                else
+                {
+                    outline1.Y2 = outline1.Y1 - 30;
+                }
+            }
+            redline_list.Add(outline1);
+            MainWindow.mainwindow.canvas.Children.Add(outline1);
+
+            Line outline2 = new Line();
+            outline2.Stroke = color;
+            outline2.StrokeThickness = thickness;
+            outline2.X1 = redline_list[2 * (floors - 1) + 1].X2;
+            outline2.Y1 = redline_list[2 * (floors - 1) + 1].Y2;
+            outline2.X2 = outline2.X1 + betweenspace;
+            outline2.Y2 = outline2.Y1;
+            redline_list.Add(outline2);
+            MainWindow.mainwindow.canvas.Children.Add(outline2);
+            
+            
+ 
+        }
+
+        //取消红色显示
+        public void ReturnToBlack()
+        {
+            for (int i = 0; i < redline_list.Count; i++)
+            {
+                MainWindow.mainwindow.canvas.Children.Remove(redline_list[i]);
+            }
         }
 
 
