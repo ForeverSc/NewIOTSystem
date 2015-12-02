@@ -12,7 +12,7 @@
             <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="true">
                         <Trigger.Setters>
-                            <Setter Property="StrokeThickness" Value="0"></Setter>
+                            <Setter Property="Stroke" Value="Gray"></Setter>
                         </Trigger.Setters>
                     </Trigger>
                 
@@ -24,7 +24,7 @@
     </UserControl.Resources>
     
     <Canvas>
-        <Rectangle  Width="50" Height="50" Fill="Beige" Cursor="Hand" Style="{StaticResource myrectangle}">
+        <Rectangle  Width="50" Height="50" Fill="LightBlue" Cursor="Hand" Style="{StaticResource myrectangle}">
         </Rectangle >
         <!--交叉-->
         <Line x:Name="line1" X1="0" Y1="10" X2="50" Y2="40" Stroke="Black"></Line>

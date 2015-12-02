@@ -96,8 +96,73 @@ namespace NewIOTSystem.ViewModels
         //将所有线路结果显示出来
         public void ShowAllPath()
         {
-
- 
+            int search;
+            DataTable datatable = new DataTable();
+            for (int z = 0; z < n; z++)
+            {
+                List<int> all_search_list = new List<int>();
+                all_search_list.Add(z);
+                search = z;
+                for (int i = 0; i < floors - 1; i++)
+                {
+                    if (swtichs[i, search / 2] == 1)//直通
+                    {
+                        search = rtag[i, search];
+                        all_search_list.Add(search);
+                    }
+                    else//交叉
+                    {
+                        if (search % 2 == 0)
+                        {
+                            search = rtag[i, search + 1];
+                        }
+                        else
+                        {
+                            search = rtag[i, search - 1];
+                        }
+                        all_search_list.Add(search);
+                    }
+                }
+                if (swtichs[floors - 1, search / 2] == 1)
+                {
+                    all_search_list.Add(search);
+                }
+                else
+                {
+                    if (search % 2 == 0)
+                    {
+                        search += 1;
+                    }
+                    else
+                    {
+                        search -= 1;
+                    }
+                    all_search_list.Add(search);
+                }
+                if (search==0)
+                {
+                 DataColumn incolumn = new DataColumn("输入端口");
+                 incolumn.ReadOnly = true;
+                datatable.Columns.Add(incolumn);
+                for (int j = 0; j < floors - 1; j++)
+                {
+                    DataColumn datacolumn = new DataColumn("第" + (j + 1).ToString() + "步");
+                    datatable.Columns.Add(datacolumn);
+                    datacolumn.ReadOnly = true;
+                }
+                DataColumn outcolumn = new DataColumn("输出端口");
+                datatable.Columns.Add(outcolumn);
+                outcolumn.ReadOnly = true;
+                }
+             
+                DataRow datarow = datatable.NewRow();
+                for (int j = 0; j < floors + 1; j++)
+                {
+                    datarow[j] = all_search_list[j].ToString();
+                }
+                datatable.Rows.Add(datarow);               
+            }
+            MainWindow.mainwindow.datagrid.ItemsSource = datatable.DefaultView;   
         }
 
 
@@ -147,14 +212,16 @@ namespace NewIOTSystem.ViewModels
             DataTable datatable=new DataTable();
             DataColumn incolumn=new DataColumn("输入端口");
             datatable.Columns.Add(incolumn);
+            incolumn.ReadOnly = true;
             for (int i = 0; i < floors-1; i++)
 			{
 			    DataColumn datacolumn=new DataColumn("第"+(i+1).ToString()+"步");
                 datatable.Columns.Add(datacolumn);
+                datacolumn.ReadOnly = true;
 			}
              DataColumn outcolumn=new DataColumn("输出端口");
             datatable.Columns.Add(outcolumn);
-
+            outcolumn.ReadOnly = true;
             DataRow datarow = datatable.NewRow();
             for (int i = 0; i < floors+1; i++)
             {
