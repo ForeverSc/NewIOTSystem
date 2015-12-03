@@ -1,7 +1,7 @@
 ﻿<Window x:Class="NewIOTSystem.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="700" Width="1000">
+        Title="IOT并行节点管理系统" Height="700" Width="1000">
     <Window.Resources>
         <ResourceDictionary>
             <Style x:Key="quickbutton" TargetType="Button">
@@ -20,11 +20,11 @@
             <RowDefinition Height="10*"/>
             <RowDefinition Height="445*"/>
 
-            <RowDefinition Height="111*"/>
+            <RowDefinition Height="150*"/>
         </Grid.RowDefinitions>
         <Menu Margin="2" Grid.Row="0" Grid.ColumnSpan="3">
             <MenuItem Header="项目(P)">
-                <MenuItem Header="新建项目" ></MenuItem>
+                <MenuItem Name="addnewproject" Header="新建项目" Click="addnewproject_Click" ></MenuItem>
                 <MenuItem Header="打开项目" ></MenuItem>
                 <MenuItem Header="保存项目" ></MenuItem>
                 <MenuItem Header="关闭项目"></MenuItem>
@@ -59,7 +59,7 @@
             <Button Style="{StaticResource quickbutton}" Click="Button_Click">
                 <Image Source="/Icons/112_LeftArrowLong_Blue.ico" ></Image>
             </Button>
-            <Button Style="{StaticResource quickbutton}" Click="Button_Click_1">
+            <Button Style="{StaticResource quickbutton}" >
                 <Image Source="/Icons/112_RightArrowLong_Blue.ico" ></Image>
             </Button>
             <Separator></Separator>

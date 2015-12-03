@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using NewIOTSystem.ViewModels;
+using NewIOTSystem.Views;
 using System.Data;
 
 
@@ -24,6 +25,8 @@ namespace NewIOTSystem
     {
         public static MainWindow mainwindow;
         public RectanglesAndInputs view;
+        public AddNewWindow addnewwindow;
+
 
         public MainWindow()
         {
@@ -31,23 +34,11 @@ namespace NewIOTSystem
             mainwindow = this;
         }
 
-       
-
-
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             view.GotInputAndRun();
             view.ShowAllPath();
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            view = new RectanglesAndInputs(8);
-            view.Show_All();
-            
-            
-           
         }
 
         private void search_button_Click(object sender, RoutedEventArgs e)
@@ -64,6 +55,18 @@ namespace NewIOTSystem
         private void highlight_button_Click(object sender, RoutedEventArgs e)
         { 
             view.ChangeSearchPathColortoRed();
+        }
+
+        private void addnewproject_Click(object sender, RoutedEventArgs e)
+        {
+            addnewwindow = new AddNewWindow();
+            addnewwindow.ShowDialog();
+            if (addnewwindow.ReturnNumbers()!=0)
+            {
+                view = new RectanglesAndInputs(addnewwindow.ReturnNumbers());
+                view.Show_All();
+            }
+            
         }
     }
 }

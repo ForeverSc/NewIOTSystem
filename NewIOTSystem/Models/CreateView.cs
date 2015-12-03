@@ -19,7 +19,7 @@ namespace NewIOTSystem
         //betweenspace=rectanglewidth=rectangleheight
         private double betweenspace = 50;
         private double startleftspace = 40;
-        private double starttopspace = 20;
+        private double starttopspace = 40;
         private double tboxwidth = 50;
         private double tboxheight = 20;
 
@@ -162,6 +162,19 @@ namespace NewIOTSystem
      
         public void Show_OtherConnections()
         {
+
+            Label input_label = new Label();
+            input_label.Content = "输入端：";
+            input_label.SetValue(Canvas.LeftProperty,(double)input_list[0].GetValue(Canvas.LeftProperty));
+            input_label.SetValue(Canvas.TopProperty, 10.0);
+            MainWindow.mainwindow.canvas.Children.Add(input_label);
+            Label output_label = new Label();
+            output_label.Content = "输出端：";
+            output_label.SetValue(Canvas.TopProperty, 10.0);
+            output_label.SetValue(Canvas.LeftProperty, (double)output_list[0].GetValue(Canvas.LeftProperty));
+            MainWindow.mainwindow.canvas.Children.Add(output_label);
+
+
             //显示输入口和输出口的端口号
             for (int i = 0; i < n; i++)
             {
