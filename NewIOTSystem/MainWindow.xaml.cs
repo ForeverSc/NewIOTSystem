@@ -37,13 +37,19 @@ namespace NewIOTSystem
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            view.GotInputAndRun();
-            view.ShowAllPath();
+         
         }
 
         private void search_button_Click(object sender, RoutedEventArgs e)
         {
-            view.ShowSearchResult(Convert.ToInt32(this.search_tbox.Text));
+            if (this.search_tbox.Text=="")
+            {
+                MessageBox.Show("没有输入搜索值，请输入：");
+            }
+            else
+            {
+                view.ShowSearchResult(Convert.ToInt32(this.search_tbox.Text));            
+            }
                    
         }
 
@@ -65,8 +71,45 @@ namespace NewIOTSystem
             {
                 view = new RectanglesAndInputs(addnewwindow.ReturnNumbers());
                 view.Show_All();
+                this.run_button.IsEnabled = true;
             }
             
+        }
+
+        private void run_button_Click(object sender, RoutedEventArgs e)
+        {
+            if (view.ReturnIfInportsAllHaveValue()==1)
+            {
+                MessageBox.Show("输入不完全");
+            }
+            else if (view.ReturnIfInportsHaveSameValue()==1)
+            {
+                MessageBox.Show("输入中含有相同项，请检查后重新输入：");
+            }
+            else if (view.ReturnIfInportsValueAboveN()==1)
+            {
+                MessageBox.Show("输入中存在超过范围的项");
+            }
+            else
+            {
+                view.GotInputAndRun();
+                view.ShowAllPath();
+            }
+        }
+
+        private void restart_button_Click(object sender, RoutedEventArgs e)
+        {
+            view.RestartAll();
+        }
+
+        private void open_button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void save_button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

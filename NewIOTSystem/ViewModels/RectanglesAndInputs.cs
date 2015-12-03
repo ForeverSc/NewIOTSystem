@@ -93,6 +93,61 @@ namespace NewIOTSystem.ViewModels
         }
 
 
+        //返回输入是否完全，是否能够运行
+        public int ReturnIfInportsAllHaveValue()
+        {
+            int flag = 0;
+            for (int i = 0; i < n; i++)
+            {
+                if (input_list[i]!=null)
+                {
+                    continue;
+                }
+                else
+                {
+                    flag = 1;
+                }
+                
+            }
+            return flag;
+        }
+
+        //返回输入是否存在相同项
+        public int ReturnIfInportsHaveSameValue()
+        {
+            int compare;
+            for (int i = 0; i < n; i++)
+            {
+                compare = Convert.ToInt32(input_list[i].Text);
+                for (int j = 0; j < n; j++)
+                {
+                    if (compare == Convert.ToInt32(input_list[j].Text))
+                    {
+                        return 1;
+                    }
+                    else
+                        continue;
+                }             
+            }
+            return 0;
+        }
+
+        //返回输入是否超过范围
+        public int ReturnIfInportsValueAboveN()
+        {
+            for (int i = 0; i < n; i++)
+            {
+                if (Convert.ToInt32(input_list[i].Text) > n - 1)
+                {
+                    return 1;
+                }
+                else
+                    continue;
+            }
+            return 0;
+        }
+
+
         //将所有线路结果显示出来
         public void ShowAllPath()
         {
@@ -165,6 +220,29 @@ namespace NewIOTSystem.ViewModels
             MainWindow.mainwindow.datagrid.ItemsSource = datatable.DefaultView;   
         }
 
+
+        //清空所有，重置项目
+        public void RestartAll()
+        {
+            for (int i = 0; i < n; i++)
+            {
+                input_list[i].Text = "";
+                output_list[i].Text = "";      
+            }
+            for (int i = 0; i < n/2; i++)
+            {
+                for (int j = 0; j < floors; j++)
+                {
+                    rectangles_list[i][j].Set_Origin();
+                }
+            }
+
+            for (int i = 0; i < redline_list.Count; i++)
+            {
+                MainWindow.mainwindow.canvas.Children.Remove(redline_list[i]);
+            }
+ 
+        }
 
 
         //显示搜索结果

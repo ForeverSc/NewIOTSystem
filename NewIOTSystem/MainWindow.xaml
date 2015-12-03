@@ -37,8 +37,8 @@
 
             </MenuItem>
             <MenuItem Header="测试(D)">
-                <MenuItem Header="启动运行" ></MenuItem>
-                <MenuItem Header="重新运行"></MenuItem>
+                <MenuItem Header="启动运行"  Click="run_button_Click"></MenuItem>
+                <MenuItem Header="重置项目" Click="restart_button_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="工具(T)">
                 <MenuItem Header="搜索" Click="search_button_Click"></MenuItem>
@@ -63,14 +63,14 @@
                 <Image Source="/Icons/112_RightArrowLong_Blue.ico" ></Image>
             </Button>
             <Separator></Separator>
-            <Button Style="{StaticResource quickbutton}">
+            <Button Style="{StaticResource quickbutton}" Click="addnewproject_Click">
                 <Image Source="/Icons/077_AddFile.ico" ></Image>
             </Button>
-            <Button Style="{StaticResource quickbutton}">
+            <Button Name="open_button" Style="{StaticResource quickbutton}" Click="open_button_Click">
                 <Image Source="/Icons/folder_open.ico" ></Image>
             </Button>
 
-            <Button Style="{StaticResource quickbutton}">
+            <Button Name="save_button" Style="{StaticResource quickbutton}" Click="save_button_Click">
                 <Image Source="/Icons/FloppyDisk.ico" ></Image>
             </Button>
             <Button Style="{StaticResource quickbutton}">
@@ -84,10 +84,10 @@
                 <Image Source="/Icons/112_ArrowReturnRight_Blue.ico" ></Image>
             </Button>
             <Separator></Separator>
-            <Button Style="{StaticResource quickbutton}">
+            <Button Name="run_button" Style="{StaticResource quickbutton}" IsEnabled="False"  Click="run_button_Click">
                 <Image Source="/Icons/startButton.png" ></Image>
             </Button>
-            <Button Style="{StaticResource quickbutton}">
+            <Button Name="restart_button" Style="{StaticResource quickbutton}" Click="restart_button_Click">
                 <Image Source="/Icons/WispRefresh.ico" ></Image>
             </Button>
             <Separator></Separator>
@@ -117,6 +117,9 @@
                     </ToolBarPanel>
                 </TabItem>
                 <TabItem Header="项目结构">
+                    <TreeView>
+                        <TreeViewItem></TreeViewItem>
+                    </TreeView>
 
                 </TabItem>
 
