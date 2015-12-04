@@ -69,7 +69,8 @@ namespace NewIOTSystem.Views
                 this.location = this.tlocation.Text;
                 this.n = Convert.ToInt32(this.tnumbers.Text);
                 string path=this.location+this.name+".iot";
-                FileStream file = new FileStream(path, FileMode.Create);         
+                FileStream file = new FileStream(path, FileMode.Create);
+                MainWindow.currentfilename = path;
                 this.Close();
             }
            

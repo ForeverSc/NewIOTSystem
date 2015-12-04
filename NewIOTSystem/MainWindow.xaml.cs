@@ -14,6 +14,8 @@ using System.Windows.Shapes;
 using NewIOTSystem.ViewModels;
 using NewIOTSystem.Views;
 using System.Data;
+using Microsoft.Win32;
+
 
 
 namespace NewIOTSystem
@@ -26,6 +28,7 @@ namespace NewIOTSystem
         public static MainWindow mainwindow;
         public RectanglesAndInputs view;
         public AddNewWindow addnewwindow;
+        public static string currentfilename;
 
 
         public MainWindow()
@@ -37,63 +40,87 @@ namespace NewIOTSystem
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-         
+
         }
 
         private void search_button_Click(object sender, RoutedEventArgs e)
         {
-            if (this.search_tbox.Text=="")
+            if (this.search_tbox.Text == "")
             {
                 MessageBox.Show("没有输入搜索值，请输入：");
             }
             else
             {
-                view.ShowSearchResult(Convert.ToInt32(this.search_tbox.Text));            
+                view.ShowSearchResult(Convert.ToInt32(this.search_tbox.Text));
+                this.highlight_button.IsEnabled = true;
+                this.returntoblack_button.IsEnabled = true;
             }
-                   
+
         }
 
         private void returntoblack_button_Click(object sender, RoutedEventArgs e)
         {
-            view.ReturnToBlack();
+            if (view == null)
+            {
+                MessageBox.Show("错误操作");
+            }
+            else
+            {
+                view.ReturnToBlack();
+            }
+
         }
 
         private void highlight_button_Click(object sender, RoutedEventArgs e)
-        { 
-            view.ChangeSearchPathColortoRed();
+        {
+            if (view == null)
+            {
+                MessageBox.Show("错误操作");
+            }
+            else
+            {
+                view.ChangeSearchPathColortoRed();
+            }
+
         }
 
         private void addnewproject_Click(object sender, RoutedEventArgs e)
         {
             addnewwindow = new AddNewWindow();
             addnewwindow.ShowDialog();
-            if (addnewwindow.ReturnNumbers()!=0)
+            if (addnewwindow.ReturnNumbers() != 0)
             {
+
                 view = new RectanglesAndInputs(addnewwindow.ReturnNumbers());
                 view.Show_All();
                 this.run_button.IsEnabled = true;
             }
+            else if (view!=null)
+            {
+                this.run_button.IsEnabled = true;
+            }
             
+
         }
 
         private void run_button_Click(object sender, RoutedEventArgs e)
         {
-            if (view.ReturnIfInportsAllHaveValue()==1)
+            if (view.ReturnIfInportsAllHaveValue() == 1)
             {
                 MessageBox.Show("输入不完全");
             }
-            else if (view.ReturnIfInportsHaveSameValue()==1)
+            else if (view.ReturnIfInportsHaveSameValue() == 1)
             {
                 MessageBox.Show("输入中含有相同项，请检查后重新输入：");
             }
-            else if (view.ReturnIfInportsValueAboveN()==1)
+            else if (view.ReturnIfInportsValueAboveN() == 1)
             {
                 MessageBox.Show("输入中存在超过范围的项");
             }
             else
             {
                 view.GotInputAndRun();
-                view.ShowAllPath();
+                //view.ShowAllPath();
             }
         }
 
@@ -104,12 +131,66 @@ namespace NewIOTSystem
 
         private void open_button_Click(object sender, RoutedEventArgs e)
         {
+            OpenFileDialog ofg = new OpenFileDialog();
+
+            if (ofg.ShowDialog() == true)
+            {
+                view = new RectanglesAndInputs();
+                view.OpenProject(ofg.FileName);
+                view.GotInputAndRun();
+            }
 
         }
 
         private void save_button_Click(object sender, RoutedEventArgs e)
         {
+            if (currentfilename != null)
+            {
 
+                view.SaveAll(currentfilename);
+            }
+            MessageBox.Show("保存成功");
+        }
+
+ 
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (view != null)
+            {
+                LeaveConfirm leaveconfirmwindow = new LeaveConfirm();
+                leaveconfirmwindow.ShowDialog();
+                if (leaveconfirmwindow.ReturnFlag() == 1)
+                {
+                    e.Cancel = false;
+                }
+                else if (leaveconfirmwindow.ReturnFlag() == 2)
+                {
+                    if (currentfilename != null)
+                    {
+                        view.SaveAll(currentfilename);
+                    }
+                    this.Close();
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
+            }
+
+
+
+        }
+
+        private void random_button_Click(object sender, RoutedEventArgs e)
+        {
+            if (view == null)
+            {
+                MessageBox.Show("请先创建项目，再设置随机输入");
+            }
+            else
+            {
+                view.SetRandomInputs();
+            }
         }
     }
 }

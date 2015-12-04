@@ -1,0 +1,20 @@
+﻿<Window x:Class="NewIOTSystem.Views.LeaveConfirm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="提醒" Height="230" Width="500">
+    <StackPanel>
+        <TextBlock Height="30" ></TextBlock>
+        <TextBlock FontSize="14"   >当前存在内容未保存，是否保存？</TextBlock>
+        <TextBlock Height="90"   ></TextBlock>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Height="50">
+            <Button Name="saveandleave_button" Margin="10" Width="100" Click="saveandleave_button_Click">保存并离开</Button>
+            <Button Name="leave" Margin="10" Width="100" Click="leave_Click">直接离开</Button>
+            <Button Name="cancel" Margin="10" Width="100" Click="cancel_Click">取消</Button>
+        </StackPanel>
+        
+        
+    </StackPanel>
+
+
+    
+</Window>

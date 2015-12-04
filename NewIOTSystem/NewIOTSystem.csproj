@@ -58,6 +58,9 @@
     <Compile Include="Views\AddNewWindow.xaml.cs">
       <DependentUpon>AddNewWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\LeaveConfirm.xaml.cs">
+      <DependentUpon>LeaveConfirm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Rectangles.xaml.cs">
       <DependentUpon>Rectangles.xaml</DependentUpon>
     </Compile>
@@ -78,6 +81,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Page Include="Views\AddNewWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LeaveConfirm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -297,6 +304,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\startButton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\arrow_run_16xLG.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
