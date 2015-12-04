@@ -23,35 +23,32 @@
             <RowDefinition Height="150*"/>
         </Grid.RowDefinitions>
         <Menu Margin="2" Grid.Row="0" Grid.ColumnSpan="3">
-            <MenuItem Header="项目(P)">
+            <MenuItem Header="项目(P)" >
                 <MenuItem Name="addnewproject" Header="新建项目" Click="addnewproject_Click" >
                    
                 </MenuItem>
-                <MenuItem Header="打开项目" ></MenuItem>
-                <MenuItem Header="保存项目" >
+                <Separator></Separator>
+                <MenuItem Header="打开项目" Click="open_button_Click" ></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="保存项目" Click="save_button_Click" >
                     <MenuItem.Icon>
                         <Image Source="/Icons/FloppyDisk.ico"></Image>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="关闭项目">
-                    <MenuItem.Icon>
-                        <Image Source="/Icons/Annotate_Disabled.ico"></Image>
-                    </MenuItem.Icon>
+                <Separator></Separator>
+                <MenuItem Name="closeproject_button" Header="关闭项目" Click="closeproject_button_Click">
+                 
                 </MenuItem>
-                <MenuItem Header="退出">
+                <Separator></Separator>
+                <MenuItem Name="close_button" Header="退出" Click="close_button_Click">
                     <MenuItem.Icon>
                         <Image Source="/Icons/Annotate_Disabled.ico"></Image>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="编辑(V)">
-                <MenuItem Header="撤销"></MenuItem>
-                <MenuItem Header="删除">
-                    <MenuItem.Icon>
-                        <Image Source="/Icons/Annotate_Disabled.ico"></Image>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="打印流程图表">
+               
+                <MenuItem Header="打印流程图表" Click="print_button_Click">
                     <MenuItem.Icon>
                         <Image Source="/Icons/printer.ico"></Image>
                     </MenuItem.Icon>
@@ -64,6 +61,7 @@
                         <Image Source="/Icons/arrow_run_16xLG.png"></Image>
                     </MenuItem.Icon>
                 </MenuItem>
+                <Separator></Separator>
                 <MenuItem Header="重置项目" Click="restart_button_Click">
                     <MenuItem.Icon>
                         <Image Source="/Icons/WispRefresh.ico"></Image>
@@ -73,20 +71,30 @@
             <MenuItem Header="工具(T)">
                 <MenuItem Header="搜索" Click="search_button_Click">
                     <MenuItem.Icon>
-                        <Image Source="/Icons/WispRefresh.ico"/>
+                        <Image Source="/Icons/magnify.ico"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Header="高亮" Click="highlight_button_Click"/>
                 <MenuItem Header="复原" Click="returntoblack_button_Click"/>
-                <MenuItem Header="更改项目设置"></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="更改项目设置">
+                    <MenuItem.Icon>
+                        <Image Source="/Icons/Gear.ico"/>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="结果(R)">
                 <MenuItem Header="运行结果"></MenuItem>
+                <Separator></Separator>
                 <MenuItem Header="搜索结果"></MenuItem>
 
             </MenuItem>
             <MenuItem Header="帮助(H)">
-                <MenuItem Header="关于IOT系统"></MenuItem>
+                <MenuItem Header="关于IOT系统" Click="information_button_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/Icons/Annotate_info.ico"/>
+                    </MenuItem.Icon>
+                </MenuItem>
 
             </MenuItem>
         </Menu>
@@ -110,7 +118,7 @@
             
            
             <Separator></Separator>
-            <Button Name="run_button" Width="60" Style="{StaticResource quickbutton}" IsEnabled="False"  Click="run_button_Click" >
+            <Button Name="run_button" Width="60" Style="{StaticResource quickbutton}" Click="run_button_Click" >
                 <StackPanel Orientation="Horizontal" Width="60">
                 <Image Source="/Icons/arrow_run_16xLG.png" ></Image>
                     <TextBlock Width="5"></TextBlock>
@@ -125,22 +133,22 @@
                 <Image Source="/Icons/1382_cogs.ico" ></Image>
             </Button>
 
-            <Button  Style="{StaticResource quickbutton}" ToolTip="搜索">
+            <Button  Style="{StaticResource quickbutton}" ToolTip="搜索" Click="search_button_Click">
                 <Image Source="/Icons/magnify.ico" ></Image>
             </Button>
 
-            <Button  Style="{StaticResource quickbutton}" ToolTip="打印">
+            <Button Name="print_button"  Style="{StaticResource quickbutton}" ToolTip="打印" Click="print_button_Click">
                 <Image Source="/Icons/printer.ico" ></Image>
             </Button>
 
-            <Button Name="information" Style="{StaticResource quickbutton}" ToolTip="帮助">
+            <Button  Name="information_button" Style="{StaticResource quickbutton}" ToolTip="帮助" Click="information_button_Click">
                 <Image Source="/Icons/Annotate_info.ico" ></Image>
             </Button>
 
         </ToolBar>
         <Border Grid.Row="3" Grid.Column="0" BorderThickness="1" BorderBrush="Gray" Margin="5" >
             <ScrollViewer  HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
-                <Canvas Background="White"  Name="canvas" Width="1000" Height="1000" />
+                <Canvas Background="White"  Name="canvas" Width="10000" Height="10000" />
             </ScrollViewer>
         </Border>
 
@@ -157,9 +165,18 @@
                 </TabItem>
                 <TabItem Header="项目">
                     <StackPanel>
-                      
-                        <TextBlock>项目名称：</TextBlock>
-                        <TextBlock>端口数：</TextBlock>
+                        <StackPanel Orientation="Horizontal" Margin="10"> 
+                            <TextBlock>项目名称：</TextBlock>
+                            <TextBox Name="tname" Width="160" IsReadOnly="True"></TextBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="10">
+                            <TextBlock>端口数：</TextBlock>
+                            <TextBlock Width="12"></TextBlock>
+                            <TextBox x:Name="tnumbers" Width="160" IsReadOnly="True"/>
+                        </StackPanel>
+                        <Button Margin="10" Height="30" >更改设置</Button>
+                        <Button Margin="10" Height="30" IsEnabled="False" >保存修改</Button>
+                        
                         
                     </StackPanel>
 

@@ -155,73 +155,85 @@ namespace NewIOTSystem.ViewModels
         //将所有线路结果显示出来
         public void ShowAllPath()
         {
-            int search;
-            DataTable datatable = new DataTable();
-            for (int z = 0; z < n; z++)
+            try
             {
+                int search;
+                DataTable datatable = new DataTable();
                 List<int> all_search_list = new List<int>();
-                all_search_list.Add(z);
-                search = z;
-                for (int i = 0; i < floors - 1; i++)
+                for (int j = 0; j < n; j++)
                 {
-                    if (swtichs[i, search / 2] == 1)//直通
-                    {
-                        search = rtag[i, search];
-                        all_search_list.Add(search);
-                    }
-                    else//交叉
-                    {
-                        if (search % 2 == 0)
-                        {
-                            search = rtag[i, search + 1];
-                        }
-                        else
-                        {
-                            search = rtag[i, search - 1];
-                        }
-                        all_search_list.Add(search);
-                    }
-                }
-                if (swtichs[floors - 1, search / 2] == 1)
-                {
+                    search = j;
                     all_search_list.Add(search);
-                }
-                else
-                {
-                    if (search % 2 == 0)
+                    for (int i = 0; i < floors - 1; i++)
                     {
-                        search += 1;
+                        if (swtichs[i, search / 2] == 1)//直通
+                        {
+                            search = rtag[i, search];
+                            all_search_list.Add(search);
+                        }
+                        else//交叉
+                        {
+                            if (search % 2 == 0)
+                            {
+                                search = rtag[i, search + 1];
+                            }
+                            else
+                            {
+                                search = rtag[i, search - 1];
+                            }
+                            all_search_list.Add(search);
+                        }
+                    }
+                    if (swtichs[floors - 1, search / 2] == 1)
+                    {
+                        all_search_list.Add(search);
                     }
                     else
                     {
-                        search -= 1;
+                        if (search % 2 == 0)
+                        {
+                            search += 1;
+                        }
+                        else
+                        {
+                            search -= 1;
+                        }
+                        all_search_list.Add(search);
                     }
-                    all_search_list.Add(search);
-                }
-                if (search == 0)
-                {
-                    DataColumn incolumn = new DataColumn("输入端口");
-                    incolumn.ReadOnly = true;
-                    datatable.Columns.Add(incolumn);
-                    for (int j = 0; j < floors - 1; j++)
+                    if (j==0)
                     {
-                        DataColumn datacolumn = new DataColumn("第" + (j + 1).ToString() + "步");
+                       DataColumn incolumn = new DataColumn("输入端口");
+                    datatable.Columns.Add(incolumn);
+                    incolumn.ReadOnly = true;
+                    for (int i = 0; i < floors - 1; i++)
+                    {
+                        DataColumn datacolumn = new DataColumn("第" + (i + 1).ToString() + "步");
                         datatable.Columns.Add(datacolumn);
                         datacolumn.ReadOnly = true;
                     }
                     DataColumn outcolumn = new DataColumn("输出端口");
                     datatable.Columns.Add(outcolumn);
-                    outcolumn.ReadOnly = true;
+                    outcolumn.ReadOnly = true; 
+                    }
+                    
+                    DataRow datarow = datatable.NewRow();
+                    for (int i = 0; i < floors + 1; i++)
+                    {
+                        datarow[i] = all_search_list[i].ToString();
+                    }
+                    datatable.Rows.Add(datarow);
+                    all_search_list.Clear();
                 }
+                
+                MainWindow.mainwindow.datagrid.ItemsSource = datatable.DefaultView;
 
-                DataRow datarow = datatable.NewRow();
-                for (int j = 0; j < floors + 1; j++)
-                {
-                    datarow[j] = all_search_list[j].ToString();
-                }
-                datatable.Rows.Add(datarow);
             }
-            MainWindow.mainwindow.datagrid.ItemsSource = datatable.DefaultView;
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
 
 
@@ -645,6 +657,7 @@ namespace NewIOTSystem.ViewModels
                     rectangles_list[i][j].SetValue(Canvas.TopProperty, starttopspace + 2 * betweenspace * i);
                     rectangles_list[i][j].SetValue(Canvas.LeftProperty, startleftspace + betweenspace * 2 + betweenspace * 2 * j);
                     rectangles_list[i][j].Set_Origin();
+                    rectangles_list[i][j].SetValue(Rectangles.ToolTipProperty, j.ToString() + "行" + "," + i.ToString() + "列");
                     MainWindow.mainwindow.canvas.Children.Add(rectangles_list[i][j]);
                 }
             }
@@ -695,11 +708,11 @@ namespace NewIOTSystem.ViewModels
             Label input_label = new Label();
             input_label.Content = "输入端：";
             input_label.SetValue(Canvas.LeftProperty, (double)input_list[0].GetValue(Canvas.LeftProperty));
-            input_label.SetValue(Canvas.TopProperty, 10.0);
+            input_label.SetValue(Canvas.TopProperty, 0.0);
             MainWindow.mainwindow.canvas.Children.Add(input_label);
             Label output_label = new Label();
             output_label.Content = "输出端：";
-            output_label.SetValue(Canvas.TopProperty, 10.0);
+            output_label.SetValue(Canvas.TopProperty, 0.0);
             output_label.SetValue(Canvas.LeftProperty, (double)output_list[0].GetValue(Canvas.LeftProperty));
             MainWindow.mainwindow.canvas.Children.Add(output_label);
 

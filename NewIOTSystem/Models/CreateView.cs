@@ -110,6 +110,7 @@ namespace NewIOTSystem
                     rectangles_list[i][j].SetValue(Canvas.TopProperty, starttopspace +2*betweenspace * i);
                     rectangles_list[i][j].SetValue(Canvas.LeftProperty, startleftspace + betweenspace * 2 + betweenspace * 2 * j);
                     rectangles_list[i][j].Set_Origin();
+                    rectangles_list[i][j].SetValue(Rectangles.ToolTipProperty, j.ToString()+"行" + "," +i.ToString()+"列" );
                    MainWindow.mainwindow.canvas.Children.Add(rectangles_list[i][j]);
                 } 
             }

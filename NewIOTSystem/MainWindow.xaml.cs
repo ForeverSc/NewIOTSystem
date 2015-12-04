@@ -38,10 +38,7 @@ namespace NewIOTSystem
         }
 
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+   
 
         private void search_button_Click(object sender, RoutedEventArgs e)
         {
@@ -86,21 +83,10 @@ namespace NewIOTSystem
 
         private void addnewproject_Click(object sender, RoutedEventArgs e)
         {
-            addnewwindow = new AddNewWindow();
-            addnewwindow.ShowDialog();
-            if (addnewwindow.ReturnNumbers() != 0)
-            {
-
+               addnewwindow = new AddNewWindow();
+               addnewwindow.ShowDialog();
                 view = new RectanglesAndInputs(addnewwindow.ReturnNumbers());
                 view.Show_All();
-                this.run_button.IsEnabled = true;
-            }
-            else if (view!=null)
-            {
-                this.run_button.IsEnabled = true;
-            }
-            
-
         }
 
         private void run_button_Click(object sender, RoutedEventArgs e)
@@ -120,7 +106,7 @@ namespace NewIOTSystem
             else
             {
                 view.GotInputAndRun();
-                //view.ShowAllPath();
+                view.ShowAllPath();
             }
         }
 
@@ -176,7 +162,10 @@ namespace NewIOTSystem
                     e.Cancel = true;
                 }
             }
-
+            else
+            {
+                e.Cancel = false;
+            }
 
 
         }
@@ -191,6 +180,59 @@ namespace NewIOTSystem
             {
                 view.SetRandomInputs();
             }
+        }
+
+        private void print_button_Click(object sender, RoutedEventArgs e)
+        {
+            PrintDialog dialog = new PrintDialog();
+            if (dialog.ShowDialog() == true)
+            {
+                dialog.PrintVisual(this.canvas, "Print Test");
+            }
+        }
+
+        private void closeproject_button_Click(object sender, RoutedEventArgs e)
+        {
+            view = null;
+            currentfilename = null;
+            this.canvas.Children.Clear();
+
+        }
+
+        private void close_button_Click(object sender, RoutedEventArgs e)
+        {
+            if (view != null)
+            {
+                LeaveConfirm leaveconfirmwindow = new LeaveConfirm();
+                leaveconfirmwindow.ShowDialog();
+                if (leaveconfirmwindow.ReturnFlag() == 1)
+                {
+                    this.Close();
+                }
+                else if (leaveconfirmwindow.ReturnFlag() == 2)
+                {
+                    if (currentfilename != null)
+                    {
+                        view.SaveAll(currentfilename);
+                    }
+                    this.Close();
+                }
+                else
+                {
+                    leaveconfirmwindow.Close();
+                }
+               
+            }
+            else
+            {
+                this.Close();
+            }
+        }
+
+        private void information_button_Click(object sender, RoutedEventArgs e)
+        {
+            InformationWindow informationwindow = new InformationWindow();
+            informationwindow.ShowDialog();
         }
     }
 }
