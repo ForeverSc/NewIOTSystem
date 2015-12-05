@@ -38,8 +38,6 @@ namespace NewIOTSystem
         }
 
 
-   
-
         private void search_button_Click(object sender, RoutedEventArgs e)
         {
             if (this.search_tbox.Text == "")
