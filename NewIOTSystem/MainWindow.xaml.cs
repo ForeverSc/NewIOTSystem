@@ -28,7 +28,7 @@ namespace NewIOTSystem
         public static MainWindow mainwindow;
         public RectanglesAndInputs view;
         public AddNewWindow addnewwindow;
-        public static string currentfilename;
+        public string currentfilename;
 
 
         public MainWindow()
@@ -52,7 +52,7 @@ namespace NewIOTSystem
                 this.highlight_button.IsEnabled = true;
                 this.returntoblack_button.IsEnabled = true;
             }
-
+            this.tableitem_searchresult.Focus();
         }
 
         private void returntoblack_button_Click(object sender, RoutedEventArgs e)
@@ -85,8 +85,15 @@ namespace NewIOTSystem
         {
                addnewwindow = new AddNewWindow();
                addnewwindow.ShowDialog();
-                view = new RectanglesAndInputs(addnewwindow.ReturnNumbers());
+               if (addnewwindow.ReturnNumbers()!=0)
+               {
+                     view = new RectanglesAndInputs(addnewwindow.ReturnNumbers());
                 view.Show_All();
+                this.currentfilename = addnewwindow.ReturnPath();
+                this.tname.Text = addnewwindow.ReturnName();
+                this.tnumbers.Text = addnewwindow.ReturnNumbers().ToString();
+               }
+              
         }
 
         private void run_button_Click(object sender, RoutedEventArgs e)
@@ -124,6 +131,9 @@ namespace NewIOTSystem
                 view = new RectanglesAndInputs();
                 view.OpenProject(ofg.FileName);
                 view.GotInputAndRun();
+
+                this.tname.Text = ofg.SafeFileName;
+                this.tnumbers.Text = view.ReturnN().ToString();
             }
 
         }
@@ -132,7 +142,6 @@ namespace NewIOTSystem
         {
             if (currentfilename != null)
             {
-
                 view.SaveAll(currentfilename);
             }
             MessageBox.Show("保存成功");
@@ -155,7 +164,7 @@ namespace NewIOTSystem
                     {
                         view.SaveAll(currentfilename);
                     }
-                    this.Close();
+                    e.Cancel = false;
                 }
                 else
                 {
@@ -196,6 +205,8 @@ namespace NewIOTSystem
             view = null;
             currentfilename = null;
             this.canvas.Children.Clear();
+            this.datagrid.ItemsSource = null;
+            this.datagrid.Items.Clear();
 
         }
 
@@ -233,6 +244,26 @@ namespace NewIOTSystem
         {
             InformationWindow informationwindow = new InformationWindow();
             informationwindow.ShowDialog();
+        }
+
+        private void changesettings_button_Click(object sender, RoutedEventArgs e)
+        {
+
+            this.tnumbers.IsReadOnly = false;
+            this.savechange_button.IsEnabled = true;
+        }
+
+        private void savechange_button_Click(object sender, RoutedEventArgs e)
+        {
+            this.canvas.Children.Clear();
+            view = new RectanglesAndInputs(Convert.ToInt32(this.tnumbers.Text));
+            view.Show_All();
+            
+        }
+
+        private void settings_button_Click(object sender, RoutedEventArgs e)
+        {
+            this.tableitem_change_settings.Focus();
         }
     }
 }

@@ -11,7 +11,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="50*"/>
-            <RowDefinition Height="13*"/>
+            <RowDefinition Height="12*"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Row="0" Grid.ColumnSpan="3" FontSize="16">新建项目</Label>

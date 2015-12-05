@@ -23,6 +23,7 @@ namespace NewIOTSystem.Views
         private string name=null;
         private string location=null;
         private int n=0;
+
         public AddNewWindow()
         {
             InitializeComponent();
@@ -70,7 +71,8 @@ namespace NewIOTSystem.Views
                 this.n = Convert.ToInt32(this.tnumbers.Text);
                 string path=this.location+this.name+".iot";
                 FileStream file = new FileStream(path, FileMode.Create);
-                MainWindow.currentfilename = path;
+                location = path;
+              
                 this.Close();
             }
            
@@ -79,6 +81,16 @@ namespace NewIOTSystem.Views
         public int ReturnNumbers()
         {
             return this.n;
+        }
+
+        public string ReturnName()
+        {
+            return this.name;
+        }
+
+        public string ReturnPath()
+        {
+            return location;
         }
 
 
@@ -96,8 +108,7 @@ namespace NewIOTSystem.Views
             {
                 this.tlocation.Text = fbd.SelectedPath;
             }
-       
-         
+      
         }
 
 

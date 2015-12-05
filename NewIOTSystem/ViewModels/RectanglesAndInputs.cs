@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using System.IO;
 
+
 namespace NewIOTSystem.ViewModels
 {
     public class RectanglesAndInputs
@@ -473,8 +474,8 @@ namespace NewIOTSystem.ViewModels
         {
             try
             {
-                FileStream savefile = new FileStream(filename, FileMode.OpenOrCreate);
-                StreamWriter sw = new StreamWriter(savefile);
+          
+                StreamWriter sw = new StreamWriter(filename,true);
                 sw.WriteLine(n);
                 sw.WriteLine(";");
                 foreach (var item in input_list)
@@ -788,6 +789,11 @@ namespace NewIOTSystem.ViewModels
  
         }
 
+
+        public int ReturnN()
+        {
+            return this.n;
+        }
 
 
     }

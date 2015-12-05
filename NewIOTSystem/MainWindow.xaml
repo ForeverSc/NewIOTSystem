@@ -47,7 +47,7 @@
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="编辑(V)">
-               
+                <MenuItem Header="设置随机输入" Click="random_button_Click"></MenuItem>
                 <MenuItem Header="打印流程图表" Click="print_button_Click">
                     <MenuItem.Icon>
                         <Image Source="/Icons/printer.ico"></Image>
@@ -129,7 +129,7 @@
                 <Image Source="/Icons/WispRefresh.ico" ></Image>   
             </Button>
             <Separator></Separator>
-            <Button Name="settings_button" Style="{StaticResource quickbutton}" ToolTip="更改设置">
+            <Button Name="settings_button" Style="{StaticResource quickbutton}" ToolTip="更改设置" Click="settings_button_Click">
                 <Image Source="/Icons/1382_cogs.ico" ></Image>
             </Button>
 
@@ -163,19 +163,19 @@
                         <Button x:Name="returntoblack_button" Height="30" Margin="10" Click="returntoblack_button_Click" IsEnabled="False"  Content="取消高亮"/>
                     </ToolBarPanel>
                 </TabItem>
-                <TabItem Header="项目">
+                <TabItem Header="项目" Name="tableitem_change_settings">
                     <StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="10"> 
                             <TextBlock>项目名称：</TextBlock>
-                            <TextBox Name="tname" Width="160" IsReadOnly="True"></TextBox>
+                            <TextBlock Name="tname" Width="160" ></TextBlock>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="10">
                             <TextBlock>端口数：</TextBlock>
                             <TextBlock Width="12"></TextBlock>
                             <TextBox x:Name="tnumbers" Width="160" IsReadOnly="True"/>
                         </StackPanel>
-                        <Button Margin="10" Height="30" >更改设置</Button>
-                        <Button Margin="10" Height="30" IsEnabled="False" >保存修改</Button>
+                        <Button Name="changesettings_button" Margin="10" Height="30" Click="changesettings_button_Click" >更改设置</Button>
+                        <Button Name="savechange_button" Margin="10" Height="30" IsEnabled="False" Click="savechange_button_Click" >保存修改</Button>
                         
                         
                     </StackPanel>
